@@ -29,7 +29,12 @@ public class ThreadBasics extends ThreadBasicsBase {
         AtomicInteger counter = new AtomicInteger(0);
         CountDownLatch latch = new CountDownLatch(1);
 
+
         // TODO: Create and start a thread that increments the counter
+        new Thread(() ->{
+            counter.getAndIncrement();
+            latch.countDown();
+        }).start();
         // Thread should increment counter and count down the latch
 
         // Wait for thread completion
