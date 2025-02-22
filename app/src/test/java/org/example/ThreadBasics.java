@@ -1,5 +1,6 @@
 package org.example;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,9 +8,6 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * These exercises cover the fundamentals of Java threading.
@@ -36,8 +34,8 @@ public class ThreadBasics extends ThreadBasicsBase {
 
         // Wait for thread completion
         boolean completed = latch.await(1, TimeUnit.SECONDS);
-        assertTrue(completed, "Thread did not complete in time");
-        assertEquals(1, counter.get());
+        Assertions.assertTrue(completed, "Thread did not complete in time");
+        Assertions.assertEquals(1, counter.get());
     }
 
     /**
@@ -57,8 +55,8 @@ public class ThreadBasics extends ThreadBasicsBase {
 
         // Wait for all threads to complete
         boolean completed = latch.await(2, TimeUnit.SECONDS);
-        assertTrue(completed, "Threads did not complete in time");
-        assertEquals(numberOfThreads * incrementsPerThread, counter.getValue());
+        Assertions.assertTrue(completed, "Threads did not complete in time");
+        Assertions.assertEquals(numberOfThreads * incrementsPerThread, counter.getValue());
     }
 
     /**
@@ -80,10 +78,10 @@ public class ThreadBasics extends ThreadBasicsBase {
         boolean producerCompleted = producerLatch.await(2, TimeUnit.SECONDS);
         boolean consumerCompleted = consumerLatch.await(2, TimeUnit.SECONDS);
 
-        assertTrue(producerCompleted && consumerCompleted, "Threads did not complete in time");
-        assertEquals(10, consumed.size());
+        Assertions.assertTrue(producerCompleted && consumerCompleted, "Threads did not complete in time");
+        Assertions.assertEquals(10, consumed.size());
         for (int i = 0; i < 10; i++) {
-            assertEquals(i + 1, consumed.get(i));
+            Assertions.assertEquals(i + 1, consumed.get(i));
         }
     }
 
@@ -102,8 +100,8 @@ public class ThreadBasics extends ThreadBasicsBase {
 
         // Wait for thread completion
         boolean completed = latch.await(2, TimeUnit.SECONDS);
-        assertTrue(completed, "Thread did not handle interruption properly");
-        assertEquals(5, processedItems.get());
+        Assertions.assertTrue(completed, "Thread did not handle interruption properly");
+        Assertions.assertEquals(5, processedItems.get());
     }
 }
 
